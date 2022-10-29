@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-let task = 'i am a React Developer'
+let task = 'I am a React Developer'
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
@@ -16,7 +16,7 @@ const taskSlice = createSlice({
   name: 'keys',
   initialState,
   reducers: {
-    increaseCurrentIndex(state, action) {
+    keyPress(state, action) {
       if (state.currentCharCode === action.payload) {
         state.task[state.currentIndex].status = 'hit'
       } else {
@@ -24,6 +24,11 @@ const taskSlice = createSlice({
       }
 
       state.currentIndex++
+
+      if (state.currentIndex > state.task.length - 1) {
+        return
+      }
+
       state.task[state.currentIndex].status = 'current'
       state.currentCharCode =
         state.task[state.currentIndex].symbol.charCodeAt(0)

@@ -8,6 +8,7 @@ import Task from '../../components/Task/Task'
 const TaskPage = () => {
   const dispatch = useDispatch()
   const currentIndex = useSelector((state) => state.task.currentIndex)
+  const task = useSelector((state) => state.task.task)
   const currentCharCode = useSelector((state) => state.task.currentCharCode)
 
   const secretInputRef = useRef()
@@ -19,7 +20,10 @@ const TaskPage = () => {
   const onKeyDownHandler = (e) => {
     if (e.repeat) return
 
-    dispatch(taskActions.increaseCurrentIndex(e.key.charCodeAt(0)))
+    if (e.key !== 'Shift' && currentIndex < task.length) {
+      dispatch(taskActions.keyPress(e.key.charCodeAt(0)))
+    }
+
     // alert(currentCharCode)
   }
 
