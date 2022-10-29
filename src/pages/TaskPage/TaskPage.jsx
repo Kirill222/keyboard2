@@ -9,11 +9,21 @@ const TaskPage = () => {
   const dispatch = useDispatch()
   const currentIndex = useSelector((state) => state.task.currentIndex)
   const task = useSelector((state) => state.task.task)
+  const isCapital = useSelector((state) => state.task.isCapital)
+  const currentCharCode = useSelector((state) => state.task.currentCharCode)
 
   const secretInputRef = useRef()
 
   useEffect(() => {
     secretInputRef.current.focus()
+
+    dispatch(taskActions.isCapital())
+
+    if (currentCharCode >= 65 && currentCharCode <= 90) {
+      dispatch(taskActions.isCapital(true))
+    } else {
+      dispatch(taskActions.isCapital(false))
+    }
   }, [])
 
   const onKeyDownHandler = (e) => {
@@ -24,14 +34,12 @@ const TaskPage = () => {
     } else if (e.key !== 'Shift' && currentIndex < task.length) {
       dispatch(taskActions.keyPress(e.key.charCodeAt(0)))
     }
-
-    // alert(currentCharCode)
   }
 
   return (
     <div>
       <Task />
-      <Keyboard />
+      <Keyboard currentCharCode={currentCharCode} isCapital={isCapital} />
 
       <input
         className='secretinput'

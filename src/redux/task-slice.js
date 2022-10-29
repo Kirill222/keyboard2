@@ -10,6 +10,7 @@ const initialState = {
   task: mapTask,
   currentIndex: 0,
   currentCharCode: mapTask[0].symbol.charCodeAt(0),
+  isCapital: undefined,
 }
 
 const taskSlice = createSlice({
@@ -32,12 +33,26 @@ const taskSlice = createSlice({
       state.task[state.currentIndex].status = 'current'
       state.currentCharCode =
         state.task[state.currentIndex].symbol.charCodeAt(0)
+
+      if (state.currentCharCode >= 65 && state.currentCharCode <= 90) {
+        state.isCapital = true
+      } else {
+        state.isCapital = false
+      }
     },
 
     reset(state) {
       state.task = initialState.task
       state.currentIndex = 0
       state.currentCharCode = initialState.currentCharCode
+      if (state.currentCharCode >= 65 && state.currentCharCode <= 90) {
+        state.isCapital = true
+      } else {
+        state.isCapital = false
+      }
+    },
+    isCapital(state, action) {
+      state.isCapital = action.payload
     },
   },
 })
