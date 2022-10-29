@@ -33,6 +33,12 @@ const taskSlice = createSlice({
       state.currentCharCode =
         state.task[state.currentIndex].symbol.charCodeAt(0)
     },
+
+    reset(state) {
+      state.task = initialState.task
+      state.currentIndex = 0
+      state.currentCharCode = initialState.currentCharCode
+    },
   },
 })
 

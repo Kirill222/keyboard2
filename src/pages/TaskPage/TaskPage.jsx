@@ -9,7 +9,6 @@ const TaskPage = () => {
   const dispatch = useDispatch()
   const currentIndex = useSelector((state) => state.task.currentIndex)
   const task = useSelector((state) => state.task.task)
-  const currentCharCode = useSelector((state) => state.task.currentCharCode)
 
   const secretInputRef = useRef()
 
@@ -20,7 +19,9 @@ const TaskPage = () => {
   const onKeyDownHandler = (e) => {
     if (e.repeat) return
 
-    if (e.key !== 'Shift' && currentIndex < task.length) {
+    if (e.key === 'Escape') {
+      dispatch(taskActions.reset())
+    } else if (e.key !== 'Shift' && currentIndex < task.length) {
       dispatch(taskActions.keyPress(e.key.charCodeAt(0)))
     }
 
