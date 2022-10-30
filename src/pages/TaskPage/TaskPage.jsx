@@ -4,13 +4,17 @@ import { taskActions } from '../../redux/task-slice'
 
 import Keyboard from '../../components/Keyboard/Keyboard'
 import Task from '../../components/Task/Task'
+import Progressbar from '../../components/Progressbar/Progressbar'
+import Timer from '../../components/Timer/Timer'
 
 const TaskPage = () => {
   const dispatch = useDispatch()
   const currentIndex = useSelector((state) => state.task.currentIndex)
   const task = useSelector((state) => state.task.task)
   const isCapital = useSelector((state) => state.task.isCapital)
+  const progress = useSelector((state) => state.task.progress)
   const currentCharCode = useSelector((state) => state.task.currentCharCode)
+  const isTimerStarted = useSelector((state) => state.task.isTimerStarted)
 
   const secretInputRef = useRef()
 
@@ -39,7 +43,9 @@ const TaskPage = () => {
   return (
     <div>
       <Task />
+      <Progressbar progress={progress} />
       <Keyboard currentCharCode={currentCharCode} isCapital={isCapital} />
+      <Timer isTimerStarted={isTimerStarted} />
 
       <input
         className='secretinput'

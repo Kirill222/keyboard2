@@ -11,6 +11,8 @@ const initialState = {
   currentIndex: 0,
   currentCharCode: mapTask[0].symbol.charCodeAt(0),
   isCapital: undefined,
+  isTimerStarted: false,
+  progress: 0,
 }
 
 const taskSlice = createSlice({
@@ -24,7 +26,13 @@ const taskSlice = createSlice({
         state.task[state.currentIndex].status = 'miss'
       }
 
+      if (!state.isTimerStarted) {
+        state.isTimerStarted = true
+      }
+
       state.currentIndex++
+
+      if (state.currentIndex === state.task.length) state.isTimerStarted = false
 
       if (state.currentIndex > state.task.length - 1) {
         return
