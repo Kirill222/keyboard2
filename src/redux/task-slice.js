@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-let task = 'I am a React Developer'
+// let task = 'I am a React Developer'
+let task = 'aaaaaaaaaa'
+
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
@@ -13,6 +15,9 @@ const initialState = {
   isCapital: undefined,
   isTimerStarted: false,
   progress: 0,
+  accuracy: 0,
+  correct: 0,
+  incorrect: 0,
 }
 
 const taskSlice = createSlice({
@@ -22,8 +27,17 @@ const taskSlice = createSlice({
     keyPress(state, action) {
       if (state.currentCharCode === action.payload) {
         state.task[state.currentIndex].status = 'hit'
+        state.correct++
       } else {
         state.task[state.currentIndex].status = 'miss'
+        state.incorrect++
+      }
+
+      if (state.correct === 0 && state.incorrect === 0) {
+        state.accuracy = 0
+      } else {
+        let total = state.correct + state.incorrect
+        state.accuracy = (state.correct * 100) / total
       }
 
       if (!state.isTimerStarted) {
@@ -53,6 +67,9 @@ const taskSlice = createSlice({
       state.task = initialState.task
       state.currentIndex = 0
       state.currentCharCode = initialState.currentCharCode
+      state.correct = 0
+      state.incorrect = 0
+      state.accuracy = 0
       if (state.currentCharCode >= 65 && state.currentCharCode <= 90) {
         state.isCapital = true
       } else {

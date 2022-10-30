@@ -6,6 +6,7 @@ import Keyboard from '../../components/Keyboard/Keyboard'
 import Task from '../../components/Task/Task'
 import Progressbar from '../../components/Progressbar/Progressbar'
 import Timer from '../../components/Timer/Timer'
+import Accuracy from '../../components/Accuracy/Accuracy'
 
 const TaskPage = () => {
   const dispatch = useDispatch()
@@ -15,6 +16,7 @@ const TaskPage = () => {
   const progress = useSelector((state) => state.task.progress)
   const currentCharCode = useSelector((state) => state.task.currentCharCode)
   const isTimerStarted = useSelector((state) => state.task.isTimerStarted)
+  const accuracy = useSelector((state) => state.task.accuracy)
 
   const secretInputRef = useRef()
 
@@ -45,6 +47,8 @@ const TaskPage = () => {
       <Task />
       <Progressbar progress={progress} />
       <Keyboard currentCharCode={currentCharCode} isCapital={isCapital} />
+
+      <Accuracy accuracy={accuracy} />
       <Timer isTimerStarted={isTimerStarted} />
 
       <input
